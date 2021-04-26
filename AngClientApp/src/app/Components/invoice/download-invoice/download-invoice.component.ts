@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { InvoiceService } from './../../../Services/invoice.service';
-import jsPDF from 'jspdf';
+import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { CustomerService } from './../../../Services/customer.service';
 import { PropertyBindingType } from '@angular/compiler';
