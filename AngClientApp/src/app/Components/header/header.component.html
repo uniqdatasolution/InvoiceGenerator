@@ -1,0 +1,57 @@
+<div>
+    <mat-toolbar>
+        <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+        </button> -->
+        <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon>menu</mat-icon> 
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="gotoCustomers()">
+                <i class="fa fa-user-o" aria-hidden="true"></i>  Customers
+            </button>
+            <button mat-menu-item (click)="gotoCategories()">
+                <i class="fa fa-tasks" aria-hidden="true"></i>  Categories
+            </button>
+            <button mat-menu-item (click)="gotoProducts()">
+                <i class="fa fa-tags" aria-hidden="true"></i>  Products
+            </button>
+            <button mat-menu-item (click)="gotoInvoice()">
+                <i class="fa fa-list" aria-hidden="true"></i>  Invoice
+            </button>
+            <button mat-menu-item (click)="gotoPayments()">
+                <i class="fa fa-money" aria-hidden="true"></i>  Payments
+            </button>
+            <!-- <button mat-menu-item (click)="gotoReports()">
+                <i class="fa fa-file-text-o" aria-hidden="true"></i>  Reports
+            </button> -->
+        </mat-menu>
+        <span [routerLink]="['/dashboard']">Invoice Application</span>
+        <span class="example-spacer"></span>
+    
+        <!-- <div ngbDropdown class="d-inline-block">
+            <a ngbDropdownToggle data-toggle="dropdownBasic1" style="cursor: pointer;" >
+                <i class="icon feather icon-user" style="margin-right: 5px;" ></i>
+                <span>{{ userDetails?.FirstName }} {{ userDetails?.LastName }}</span>
+            </a>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem (click)="logout()" class="dropDown-font">Logout</button>
+            </div>
+        </div> -->
+        <!-- <div>
+            <select class="form-control" placeholder="select">
+                <option value="">{{ userDetails?.FirstName }} {{ userDetails?.LastName }}</option>
+                <option value="two" (click)="logout()">Logout</option>
+            </select>
+        </div> -->
+        <div class="select-dropdown">
+            <mat-form-field appearance="fill">
+                <mat-label>{{ userDetails?.FirstName }} {{ userDetails?.LastName }}</mat-label>
+                <mat-select>
+                    <mat-option value="two" (click)="logout()" >Logout</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    
+    </mat-toolbar>
+</div>

@@ -1,0 +1,48 @@
+<app-header></app-header>
+
+<div class="container-fluid">
+    <section class="mat-typography">
+        <h2>Create A New Category</h2>
+    </section>
+    <mat-divider></mat-divider>
+    <br>
+    <form [formGroup]="createForm" (ngSubmit)='onSubmit()' class="create-form">
+
+        <mat-form-field class="field-full-width">
+            <input matInput placeholder="Category Name" maxlength="15" formControlName="CategoryName" #CategoryName required>
+            <mat-error *ngIf="createForm.controls['CategoryName'].errors?.required">
+            Category Name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="field-full-width">
+            <mat-label>Select Parent</mat-label>
+            <mat-select formControlName="ParentId" #ParentId>
+                <mat-option  *ngFor="let item of categoriesList" [value]="item.CategoryId">
+                {{item.CategoryName}}
+                </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="createForm.controls['ParentId'].errors?.required">
+                Please choose Parent
+            </mat-error> -->
+        </mat-form-field>
+
+        <!-- <mat-divider></mat-divider>
+        <br><br>
+        <div class="col-sm-3" *ngIf="!!imageToShow && imageToShow != ''">
+            <img src="{{imageToShow}}" onerror="this.src='https://api.janamrashi.com/Attachments/user.png';" alt="" width="90" height="60">
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group fill">
+                <input type="file" class="form-control" id="Icon" placeholder="Profile Image" accept="image/*"
+                    (change)="changeListener($event.target.files)">
+            </div>
+        </div> -->
+        
+        <br><br>
+        <button mat-raised-button color="accent" (click)="goBack()">Back</button>&nbsp;
+        <button type="submit" [disabled]="createForm.pristine || createForm.invalid" mat-raised-button color="primary">Save</button>
+    </form>
+</div>
+
+<app-footer></app-footer>

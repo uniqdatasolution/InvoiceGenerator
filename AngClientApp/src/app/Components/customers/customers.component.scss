@@ -1,0 +1,46 @@
+.main {
+    margin: 30px;
+    padding: 40px;
+    background-color: white;
+    border: 1px solid rgb(207, 204, 204);
+    border-radius: 5px;
+    box-shadow: 2px solid gray;
+}
+
+.table-responsive {
+    background-color: white;
+    border: 1px solid #dfdada;
+}
+
+table {
+    width: 100%;
+    background-color: white !important;
+}
+.table-responsive1 {
+    background-color: white !important;
+}
+.paginator {
+    float: right;
+    text-align: right;
+    padding: 20px;
+}
+.btn-outline-success {
+    padding: 0px 5px;
+    border: 0px;
+}
+.btn-outline-danger {
+    padding: 0px 5px;
+    border: 0px;
+}
+.card {
+    margin-top: 20px;
+    padding: 10px;
+}
+th.mat-sort-header-sorted {
+    color: black;
+}
+.add-btn {
+    background-color: white !important;
+    float: right;
+    padding: 20px;
+}

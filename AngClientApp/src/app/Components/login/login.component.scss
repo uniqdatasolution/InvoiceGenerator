@@ -1,0 +1,46 @@
+// .bg {
+//     /* The image used */
+//     background-image: url("./../../assets//images/udsl-img.jpeg");
+  
+//     /* Full height */
+//     height: 100%; 
+  
+//     /* Center and scale the image nicely */
+//     background-position: center;
+//     background-repeat: no-repeat;
+//     // background-size: cover;
+// }
+// .img-part {
+//     padding-top: 10%;
+// }
+.form-part {
+    padding-top: 10%;
+    margin-top: auto;
+    margin-bottom: auto;
+    img {
+        margin-top: -20px;
+        margin-left: 33%;
+        margin-bottom: 10px;
+    }
+    .card{
+        margin: 0px 65px 65px;
+        padding-top: 20px;
+        transition: box-shadow .2s ease-in-out;
+        box-shadow: 0 10px 29px 0 rgb(68 88 144 / 10%);
+        background-color: #fff;
+    }
+}
+.login-form {
+    h1 {
+        text-align: center;
+    }
+    .form {
+        text-align: center;
+        padding: 50px;
+        width: 100%;
+    }
+    .form-element {
+        padding: 5px 0px 25px 2px;
+        width: 80%;
+    }
+}

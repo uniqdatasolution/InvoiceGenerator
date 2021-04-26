@@ -1,0 +1,106 @@
+<app-header></app-header>
+<div class="main">
+    <div class="container-fluid">
+        <section class="mat-typography">
+            <h2>Edit Customer Details</h2>
+        </section>
+        <mat-divider></mat-divider>
+        <br>
+        <form [formGroup]="editForm" (ngSubmit)='onSubmit()' class="create-form">
+
+            <mat-form-field class="field-full-width">
+              <input matInput placeholder="First name" maxlength="15" formControlName="Firstname" #Firstname required>
+              <mat-error *ngIf="editForm.controls['Firstname'].errors?.required">
+                First name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="field-full-width">
+              <input matInput placeholder="Last Name" maxlength="15" formControlName="LastName" #LastName required>
+              <mat-error *ngIf="editForm.controls['LastName'].errors?.required">
+                Last Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+    
+            <mat-form-field class="field-full-width">
+                <input matInput placeholder="Email" maxlength="40" formControlName="Email" #Email required>
+                <mat-error *ngIf="editForm.controls['Email'].errors?.required">
+                    Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>            
+    
+            <mat-form-field class="field-full-width">
+                <input matInput placeholder="Mobile Number" type="tel" formControlName="MobileNumber" #MobileNumber required>
+                <mat-error *ngIf="editForm.controls['MobileNumber'].errors?.required">
+                    MobileNumber is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="editForm.controls['MobileNumber'].errors?.pattern">
+                    Mobile Number should be with country code ex.(+919999999999)
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="field-full-width">
+                <input matInput placeholder="Phone Number" maxlength="15" formControlName="PhoneNumber" type="PhoneNumber" >
+                <!-- <mat-error *ngIf="editForm.controls['PhoneNumber'].errors?.required">
+                    Please enter your PhoneNumber
+                </mat-error> -->
+            </mat-form-field>
+
+            <mat-form-field class="field-full-width">
+                <input matInput placeholder="Postal Code" maxlength="6" formControlName="PostalCode" type="PostalCode" required>
+                <mat-error *ngIf="editForm.controls['PostalCode'].errors?.required">
+                    Please enter your PostalCode
+                </mat-error>
+                <mat-error *ngIf="editForm.controls['PostalCode'].errors?.pattern">
+                    PinCode should be with 6 numbers
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="field-full-width">
+                <mat-label>Select Country</mat-label>
+                <mat-select formControlName="Country" (selectionChange)="getStateList($event.value)" #Country required>
+                    <mat-option  *ngFor="let item of countryList" [value]="item.CountryId">
+                    {{item.CountryName}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="editForm.controls['Country'].errors?.required">
+                    Please enter your Country
+                </mat-error>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill" class="field-full-width">
+                <mat-label>Select State</mat-label>
+                <mat-select formControlName="State" (selectionChange)="getCityList($event.value)" #State required>
+                  <mat-option  *ngFor="let item of stateList" [value]="item.StateId">
+                    {{item.StateName}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="editForm.controls['State'].errors?.required">
+                    Please enter your State
+                </mat-error>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill" class="field-full-width">
+                <mat-label>Select City</mat-label>
+                <mat-select formControlName="City" #City required>
+                  <mat-option  *ngFor="let item of cityList" [value]="item.CityId">
+                    {{item.CityName}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="editForm.controls['City'].errors?.required">
+                    Please enter your City
+                </mat-error>
+            </mat-form-field>
+
+            <div class="col-sm-3">
+                <mat-slide-toggle color="primary" (change)="setValue($event)"
+                [(ngModel)]="toggleStatus" [ngModelOptions]="{standalone: true}">Active</mat-slide-toggle>
+            </div>
+            
+            <br><br>
+            <button mat-raised-button color="accent" (click)="goBack()">Back</button>&nbsp;
+            <button type="submit" [disabled]="editForm.pristine || editForm.invalid" mat-raised-button color="primary">Save</button>
+          </form>
+    </div>
+</div>
+<app-footer></app-footer>

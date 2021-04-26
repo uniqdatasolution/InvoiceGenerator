@@ -1,0 +1,17 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+.header-name {
+    border: 0px;
+    background: transparent;
+}
+.mat-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-form-field-flex {
+    cursor: pointer;
+    border: 1px solid black;
+}
+.d-inline-block {
+    a {
+        text-decoration: none;
+        color: black;
+    }
+}

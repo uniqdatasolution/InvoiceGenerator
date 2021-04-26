@@ -1,0 +1,91 @@
+<app-header></app-header>
+
+<div class="container-fluid">
+    <section class="mat-typography">
+        <h2>Edit Product</h2>
+    </section>
+    <mat-divider></mat-divider>
+    <br>
+    <form [formGroup]="editForm" (ngSubmit)='onSubmit()' class="create-form">
+
+        <mat-form-field class="field-full-width">
+            <input matInput placeholder="Product Name" maxlength="15" formControlName="ProductName" #ProductName required>
+            <mat-error *ngIf="editForm.controls['ProductName'].errors?.required">
+            Product Name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="field-full-width">
+            <mat-label>Select Category</mat-label>
+            <mat-select formControlName="CategoryId" #CategoryId required>
+                <mat-option  *ngFor="let item of categoriesList" [value]="item.CategoryId">
+                {{item.CategoryName}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="editForm.controls['CategoryId'].errors?.required">
+                Please choose Category
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="field-full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="Description" #Description required></textarea>
+            <mat-error *ngIf="editForm.controls['Description'].errors?.required">
+                Description is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="field-full-width">
+            <input matInput placeholder="Unit Price" maxlength="15" formControlName="UnitPrice" #UnitPrice required>
+            <mat-error *ngIf="editForm.controls['UnitPrice'].errors?.required">
+                Unit Price is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="field-full-width">
+            <input matInput placeholder="QuantityOnHand" maxlength="15" formControlName="QuantityOnHand" #QuantityOnHand required>
+            <mat-error *ngIf="editForm.controls['QuantityOnHand'].errors?.required">
+                QuantityOnHand is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="field-full-width">
+            <input matInput placeholder="Height" maxlength="15" formControlName="Height" #Height>
+            <!-- <mat-error *ngIf="editForm.controls['Height'].errors?.required">
+                Height is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+
+        <mat-form-field class="field-full-width">
+            <input matInput placeholder="Width" maxlength="15" formControlName="Width" #Width>
+            <!-- <mat-error *ngIf="editForm.controls['Width'].errors?.required">
+                Width is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+
+        <mat-form-field class="field-full-width">
+            <input matInput placeholder="Weight" maxlength="15" formControlName="Weight" #Weight>
+            <!-- <mat-error *ngIf="editForm.controls['Weight'].errors?.required">
+                Weight is <strong>required</strong>
+            </mat-error> -->
+        </mat-form-field>
+
+        <!-- <mat-divider></mat-divider>
+        <br><br>
+        <div class="col-sm-3" *ngIf="!!imageToShow && imageToShow != ''">
+            <img src="{{imageToShow}}" onerror="this.src='https://api.janamrashi.com/Attachments/user.png';" alt="" width="90" height="60">
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group fill">
+                <input type="file" class="form-control" id="Icon" placeholder="Profile Image" accept="image/*"
+                    (change)="changeListener($event.target.files)">
+            </div>
+        </div> -->
+        
+        <br><br>
+        <button mat-raised-button color="accent" (click)="goBack()">Back</button>&nbsp;
+        <button type="submit" [disabled]="editForm.pristine || editForm.invalid" mat-raised-button color="primary">Save</button>
+    </form>
+</div>
+
+<app-footer></app-footer>
