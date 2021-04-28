@@ -89,6 +89,16 @@
             </mat-error>
         </mat-form-field>
 
+        <mat-form-field class="field-full-width" *ngIf="showGst">
+            <input matInput placeholder="Gst Number" maxlength="40" formControlName="GstNumber" #GstNumber required>
+            <!-- <mat-error *ngIf="createForm.controls['GstNumber'].errors?.required">
+                Gst Number is <strong>required</strong>
+            </mat-error> -->
+            <!-- <label *ngIf="createForm.get('GstNumber').errors?.required" class="error">
+                Enter GstNumber.
+            </label> -->
+        </mat-form-field> 
+
         <!-- <mat-divider></mat-divider>
         <br><br>
         <div class="col-sm-3" *ngIf="!!imageToShow && imageToShow != ''">

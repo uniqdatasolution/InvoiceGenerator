@@ -90,12 +90,13 @@ export class InvoiceComponent implements OnInit {
     console.log('======================================show download')
   }
 
-  editInvoice(id: any) {
+  editInvoice(id: any, cid: any) {
     // this.route.navigateByUrl('/dashboard/invoice/edit-product/'+id);
     const dialogRef = this.dialog.open(EditInvoiceComponent, {
       minWidth: '40%',
       data: {
-        invoiceId: id
+        invoiceId: id,
+        customerId: cid
       }
     });
     dialogRef.afterClosed().subscribe(result => {

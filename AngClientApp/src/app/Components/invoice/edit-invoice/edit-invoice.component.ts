@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { InvoiceDetailModel, InvoiceModel } from 'src/app/Models/invoice.model';
@@ -9,7 +9,8 @@ import { InvoiceService } from 'src/app/Services/invoice.service';
 import { ProductService } from 'src/app/Services/product.service';
 
 export interface DialogData {
-  invoiceId: any;
+  invoiceId: any,
+  customerId: any
 }
 
 @Component({
@@ -35,6 +36,8 @@ export class EditInvoiceComponent implements OnInit {
   invoiceById: any = {};
   invoiceDetailsByInvoiceId: any = [];
 
+  colorControl= new FormControl();
+
   constructor(
     private fb: FormBuilder,
     private appService: AppService,
@@ -47,6 +50,8 @@ export class EditInvoiceComponent implements OnInit {
   ) {
     console.log('======================data', data);
     this.invoiceId = data.invoiceId;
+    this.customerId = data.customerId;
+    this.colorControl = new FormControl(this.customerId);
   }
 
   ngOnInit(): void {
@@ -191,6 +196,7 @@ export class EditInvoiceComponent implements OnInit {
       console.log('=================amount', InvoiceAmount);
     }
     this.invoiceModel.TotalAmount = InvoiceAmount;
+    this.invoiceModel.CustomerId = this.customerId;
     this.invoiceService.saveInvoice(this.invoiceModel).subscribe((res: any) => {
       console.log('====================res for invoice', res)
       if(res.status) {

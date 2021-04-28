@@ -20,11 +20,12 @@ async function saveCustomer(form) {
             .input('IsDeleted', sql.Bit, form.IsDeleted)
             .input('CreatedBy', sql.Int, form.CreatedBy)
             .input('ModifiedBy', sql.Int, form.ModifiedBy)
+            .input('GstNumber', sql.VarChar, form.GstNumber)
             .execute('SaveCustomer');
         return {status: true, data: saveCustomer.recordsets[0], errorMessage: ""};
     } catch (error) {
         console.log(error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error}
     }
 }
 
@@ -36,7 +37,7 @@ async function getCustomers() {
         return {status: true, data: customers.recordsets[0], errorMessage: ""};
     } catch (error) {
         // console.log('errrrrrrrrrrrrrrrrrrrrrrrr', error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error}
     }
 }
 
@@ -54,7 +55,7 @@ async function getCustomers() {
 //         return await {status: true, data: validateUser.recordsets[0], errorMessage: "", token: token};
 //     } catch (error) {
 //         console.log('errrrrrrrrrrrrrrrrrrrrrrrr', error);
-//         // return {status: false,errorMessage: error.originalError.info.message}
+//         // return {status: false,errorMessage: error}
 //         return {status: false,errorMessage: error}
 //     }
 // }

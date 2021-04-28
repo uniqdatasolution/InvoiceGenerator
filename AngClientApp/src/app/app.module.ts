@@ -31,6 +31,9 @@ import { InvoiceComponent } from './Components/invoice/invoice.component';
 import { AddInvoiceComponent } from './Components/invoice/add-invoice/add-invoice.component';
 import { EditInvoiceComponent } from './Components/invoice/edit-invoice/edit-invoice.component';
 import { DownloadInvoiceComponent } from './Components/invoice/download-invoice/download-invoice.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbButtonsModule, NgbDropdownModule, NgbTooltipModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxNumToWordsModule } from 'ngx-num-to-words'; 
 
 @NgModule({
   declarations: [
@@ -63,6 +66,11 @@ import { DownloadInvoiceComponent } from './Components/invoice/download-invoice/
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     HttpClientModule,
+    NgbModule,
+    NgbDropdownModule,
+    // NgbTooltipModule,
+    NgbButtonsModule,
+    NgxNumToWordsModule
   ],
   providers: [
     HttpErrorHandler,

@@ -15,7 +15,7 @@ async function saveCategory(form) {
         return {status: true, data: saveCategory.recordsets[0], errorMessage: ""};
     } catch (error) {
         console.log(error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error }
     }
 }
 
@@ -27,7 +27,7 @@ async function getAllCategories() {
         return {status: true, data: categories.recordsets[0], errorMessage: ""};
     } catch (error) {
         // console.log('errrrrrrrrrrrrrrrrrrrrrrrr', error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error }
     }
 }
 

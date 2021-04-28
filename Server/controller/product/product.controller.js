@@ -12,16 +12,16 @@ async function saveProduct(form) {
             .input('Description', sql.VarChar, form.Description)
             .input('UnitPrice', sql.Decimal, form.UnitPrice)
             .input('QuantityOnHand', sql.Int, form.QuantityOnHand)
-            .input('Height', sql.Decimal, form.Height)
-            .input('Width', sql.Decimal, form.Width)
-            .input('Weight', sql.Decimal, form.Weight)
+            .input('Height', sql.Int, form.Height)
+            .input('Width', sql.Int, form.Width)
+            .input('Weight', sql.Int, form.Weight)
             .input('CreatedBy', sql.Int, form.CreatedBy)
             .input('ModifiedBy', sql.Int, form.ModifiedBy)
             .execute('saveProduct');
         return {status: true, data: saveProduct.recordsets[0], errorMessage: ""};
     } catch (error) {
         console.log(error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error}
     }
 }
 
@@ -33,7 +33,7 @@ async function getAllProducts() {
         return {status: true, data: products.recordsets[0], errorMessage: ""};
     } catch (error) {
         // console.log('errrrrrrrrrrrrrrrrrrrrrrrr', error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error}
     }
 }
 

@@ -30,7 +30,7 @@ async function getVendors() {
         return {status: true, data: users.recordsets[0], errorMessage: ""};
     } catch (error) {
         // console.log('errrrrrrrrrrrrrrrrrrrrrrrr', error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error }
     }
 }
 
@@ -48,7 +48,7 @@ async function ValidateVendor(form) {
         return await {status: true, data: validateUser.recordsets[0], errorMessage: "", token: token};
     } catch (error) {
         console.log('errrrrrrrrrrrrrrrrrrrrrrrr', error);
-        // return {status: false,errorMessage: error.originalError.info.message}
+        // return {status: false,errorMessage: error }
         return {status: false,errorMessage: error}
     }
 }

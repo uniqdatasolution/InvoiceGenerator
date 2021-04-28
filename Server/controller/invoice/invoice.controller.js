@@ -15,7 +15,7 @@ async function saveInvoice(form) {
         return {status: true, data: saveInvoice.recordsets[0], errorMessage: ""};
     } catch (error) {
         console.log(error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error }
     }
 }
 
@@ -33,7 +33,7 @@ async function saveInvoiceDetail(form) {
         return {status: true, data: saveInvoiceDetail.recordsets[0], errorMessage: ""};
     } catch (error) {
         console.log(error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error }
     }
 }
 
@@ -45,7 +45,7 @@ async function getAllInvoices() {
         return {status: true, data: invoices.recordsets[0], errorMessage: ""};
     } catch (error) {
         // console.log('errrrrrrrrrrrrrrrrrrrrrrrr', error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error }
     }
 }
 
@@ -57,7 +57,7 @@ async function getAllInvoiceDetailsList() {
         return {status: true, data: invoiceDetailsList.recordsets[0], errorMessage: ""};
     } catch (error) {
         // console.log('errrrrrrrrrrrrrrrrrrrrrrrr', error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error }
     }
 }
 

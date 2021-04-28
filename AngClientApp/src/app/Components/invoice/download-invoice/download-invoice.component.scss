@@ -1,3 +1,6 @@
+.pdf-template {
+    margin: 50px;
+}
 .main-head {
     text-align: center;
     margin-top: 50px;
@@ -25,5 +28,15 @@ img {
     text-decoration: underline;
 }
 .download-btn {
-    margin-top: 30px;
+    margin-top: 250px;
+}
+
+table, th, td {
+    border: 1px solid black;
+  }
+.items-col {
+    td {
+        border-bottom: none;
+        border-top: 0px;
+    }
 }

@@ -9,7 +9,7 @@ async function getCountryList() {
         return {status: true, data: country.recordsets[0], errorMessage: ""};
     } catch (error) {
         // console.log('errrrrrrrrrrrrrrrrrrrrrrrr', error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error }
     }
 }
 
@@ -35,7 +35,7 @@ async function getCityListByStateId(StateId) {
         return {status: true, data: city.recordsets[0], errorMessage: ""};
     } catch (error) {
         // console.log('errrrrrrrrrrrrrrrrrrrrrrrr', error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error }
     }
 }
 
@@ -48,7 +48,7 @@ async function getCountryByCountryId(CountryId) {
         return {status: true, data: country.recordsets[0], errorMessage: ""};
     } catch (error) {
         // console.log('errrrrrrrrrrrrrrrrrrrrrrrr', error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error }
     }
 }
 
@@ -61,7 +61,7 @@ async function getStateByStateId(StateId) {
         return {status: true, data: state.recordsets[0], errorMessage: ""};
     } catch (error) {
         // console.log('errrrrrrrrrrrrrrrrrrrrrrrr', error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error }
     }
 }
 
@@ -74,7 +74,7 @@ async function getCityByCityId(CityId) {
         return {status: true, data: city.recordsets[0], errorMessage: ""};
     } catch (error) {
         // console.log('errrrrrrrrrrrrrrrrrrrrrrrr', error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error }
     }
 }
 
@@ -86,7 +86,7 @@ async function getCurrencyList() {
         return {status: true, data: currency.recordsets[0], errorMessage: ""};
     } catch (error) {
         // console.log('errrrrrrrrrrrrrrrrrrrrrrrr', error);
-        return {status: false,errorMessage: error.originalError.info.message}
+        return {status: false,errorMessage: error }
     }
 }
 

@@ -20,6 +20,7 @@ export class AddCustomerComponent implements OnInit {
   createForm: any = FormGroup;
   stateList: Array<any> = [];
   cityList: Array<any> = [];
+  showGst = false;
 
   constructor(
     private router: Router,
@@ -46,6 +47,7 @@ export class AddCustomerComponent implements OnInit {
           Validators.pattern('^([0-9]){6}$')
         ])
       ],
+      // GstNumber: [''],
       City: ['', Validators.required],
       State: ['', Validators.required],
       Country: ['', Validators.required],
@@ -71,6 +73,15 @@ export class AddCustomerComponent implements OnInit {
 
   getStateList(CountryId: any) {
     console.log(CountryId)
+    if(CountryId === 101) {
+      console.log('==========================true for india')
+      this.createForm.addControl('GstNumber', this.fb.control('', [Validators.required]));
+      this.showGst = true;
+    } else {
+      console.log('false=======================')
+      this.createForm.removeControl('GstNumber');
+      this.showGst = false;
+    }
     this.customerModel.Country = CountryId;
     // this.customerModel.State = null;
     // this.customerModel.City = null;
@@ -129,6 +140,7 @@ export class AddCustomerComponent implements OnInit {
     this.customerModel.City = this.createForm.value.City;
     this.customerModel.State = this.createForm.value.State;
     this.customerModel.Country = this.createForm.value.Country;
+    this.customerModel.GstNumber = this.createForm?.value.GstNumber;
     console.log('==cus', this.customerModel);
     this.customerService.saveCustomer(this.customerModel).subscribe((data: any) => {
       if (!!data) {

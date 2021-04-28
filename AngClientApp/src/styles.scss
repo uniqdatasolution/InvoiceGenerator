@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.css";  
-@import '~bootstrap/dist/css/bootstrap.min.css';   
+// @import "~bootstrap/dist/css/bootstrap.css";  
+// @import '~bootstrap/dist/css/bootstrap.min.css';   
+@import "~bootstrap/dist/css/bootstrap.css";
 @import '~ngx-toastr/toastr';
 // @import '~ngx-toastr/toastr-bs4-alert';
 
@@ -11,3 +12,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
+@import '~bootstrap/scss/bootstrap';
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

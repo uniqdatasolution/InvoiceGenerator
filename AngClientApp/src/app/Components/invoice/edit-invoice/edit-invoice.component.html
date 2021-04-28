@@ -6,17 +6,17 @@
     <br>
     <div class="row">
         <div class="col-md-6">
-            <p>Customer : {{customerDetails.FirstName}} {{customerDetails.LastName}} </p>
-            <!-- <form>
+            <!-- <p>Customer : {{customerDetails.FirstName}} {{customerDetails.LastName}} </p> -->
+            <form>
                 <mat-form-field class="field-full-width">
                     <mat-label>Select Customer</mat-label>
-                    <mat-select (selectionChange)="SelectCustomer($event.value)">
+                    <mat-select (selectionChange)="SelectCustomer($event.value)" [formControl]="colorControl">
                         <mat-option  *ngFor="let item of customersList" [value]="item.CustomerId">
                         {{item.FirstName}} {{item.LastName}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-            </form> -->
+            </form>
         </div>
     </div>
 

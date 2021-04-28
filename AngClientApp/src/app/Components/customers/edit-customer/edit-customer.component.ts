@@ -21,6 +21,7 @@ export class EditCustomerComponent implements OnInit {
   editForm: any = FormGroup;
   stateList: Array<any> = [];
   cityList: Array<any> = [];
+  showGst = false;
 
   constructor(
     private router: Router,
@@ -77,6 +78,7 @@ export class EditCustomerComponent implements OnInit {
           this.editForm.get('PhoneNumber').setValue(data.PhoneNumber);
           this.editForm.get('PostalCode').setValue(data.PostalCode);
           this.editForm.get('Country').setValue(data.Country);
+          this.editForm.get('GstNumber').setValue(data.GstNumber);
           // this.editForm.get('State').setValue(data.StateId);
           // this.editForm.get('City').setValue(data.CityId);
           // this.editForm.get('Country').setValue(data.Country);
@@ -104,6 +106,15 @@ export class EditCustomerComponent implements OnInit {
 
   getStateList(CountryId: any) {
     console.log('countryId================================', CountryId)
+    if(CountryId === 101) {
+      console.log('==========================true for india')
+      this.editForm.addControl('GstNumber', this.fb.control('', [Validators.required]));
+      this.showGst = true;
+    } else {
+      console.log('false=======================')
+      this.editForm.removeControl('GstNumber');
+      this.showGst = false;
+    }
     this.customerModel.Country = CountryId;
     this.stateList = [];
     if (!!this.customerModel.Country) {
@@ -155,6 +166,7 @@ export class EditCustomerComponent implements OnInit {
     this.customerModel.City = this.editForm.value.City;
     this.customerModel.State = this.editForm.value.State;
     this.customerModel.Country = this.editForm.value.Country;
+    this.customerModel.GstNumber = this.editForm?.value.GstNumber;
     console.log('==cus', this.customerModel);
     this.customerService.saveCustomer(this.customerModel).subscribe((data: any) => {
       if (data.status) {
