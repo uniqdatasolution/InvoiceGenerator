@@ -28,7 +28,7 @@ img {
     text-decoration: underline;
 }
 .download-btn {
-    margin-top: 250px;
+    margin-top: 1000px;
 }
 
 table, th, td {
@@ -40,3 +40,22 @@ table, th, td {
         border-top: 0px;
     }
 }
+// .last:last-child {
+//     height: 200px;
+// }
+// .div-last, div:last-child > div:last-child { 
+//     background-color:red;
+// }
+.table {
+    tr:nth-last-child(1) {
+        height: 1000px;
+    }
+}
+.container-fluid {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.row-hei {
+    height: 1000px;
+}
+  

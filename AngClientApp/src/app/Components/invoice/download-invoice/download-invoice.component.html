@@ -96,30 +96,102 @@
             </div>
         </div>
     </div> -->
-    <div class="container-fluid pdf-template">
+    <!-- <div class="container-fluid pdf-template">
         <div class="row" style="border: 1px solid black;">
             <div class="col-md-12">
-                <span><b>GSTIN: {{vendorDetails.GstNumber}}</b></span>
+                <span><b>GSTIN: {{vendorDetails?.GstNumber}}</b></span>
                 <span style="float: right;"><b>Original Copy</b></span>
             </div>
             <div class="col-md-12" style="text-align: center;">
-                <h1>{{vendorDetails.CompanyName}}</h1>
-                <p>{{vendorDetails.CompanyAddress}}, {{vendorDetails.PostalCode}}, {{vendorDetails.CityName}}, {{vendorDetails.StateName}}</p>
-                <p>Mobile: {{vendorDetails.MobileNumber}}</p>
+                <h1><b>{{vendorDetails?.CompanyName}}</b></h1>
+                <p>{{vendorDetails?.CompanyAddress}}, {{vendorDetails?.PostalCode}}, {{vendorDetails?.CityName}}, {{vendorDetails?.StateName}}</p>
+                <p><b>Mobile: {{vendorDetails?.MobileNumber}}</b></p>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6" style="border-left: 1px solid black;">
-                <div>Invoice Number     : {{invoiceDetails?.InvoiceNumber}} </div>
-                <div>Invoice Date       : {{invoiceDetails?.InvoiceDate | date}}</div>
-                <div>Place of Supply    : </div>
-                <div>Reverse Charge     : 0</div>
+                <div class="row">
+                    <div class="col-md-3">
+                        Invoice Number
+                    </div>
+                    <div class="col-md-1">
+                        :
+                    </div>
+                    <div class="col-md-5">
+                        {{invoiceDetails?.InvoiceNumber}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        Invoice Date
+                    </div>
+                    <div class="col-md-1">
+                        :
+                    </div>
+                    <div class="col-md-5">
+                        {{invoiceDetails?.InvoiceDate | date}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        Place of Supply
+                    </div>
+                    <div class="col-md-1">
+                        :
+                    </div>
+                    <div class="col-md-5">
+                        {{customerDetails?.CityName}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        Reverse Charge
+                    </div>
+                    <div class="col-md-1">
+                        :
+                    </div>
+                    <div class="col-md-5">
+                        N
+                    </div>
+                </div>
             </div>
             <div class="col-md-6" style="border-right: 1px solid black; border-left: 1px solid black;">
-                <div>GR/RR No.      :</div>
-                <div>Transport      : </div>
-                <div>Vehicel No.    :</div>
-                <div>Station        :</div>
+                <div class="row">
+                    <div class="col-md-3">
+                        GR/RR No.
+                    </div>
+                    <div class="col-md-1">:</div>
+                    <div class="col-md-5">
+                        {{invoiceDetails?.GRRRNo}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        Transport
+                    </div>
+                    <div class="col-md-1">:</div>
+                    <div class="col-md-5">
+                        {{invoiceDetails?.Transport}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        Vehicel No.
+                    </div>
+                    <div class="col-md-1">:</div>
+                    <div class="col-md-5">
+                        {{invoiceDetails?.VehicleNo}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        Station
+                    </div>
+                    <div class="col-md-1">:</div>
+                    <div class="col-md-5">
+                        {{invoiceDetails?.Station}}
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -152,25 +224,29 @@
             <table class="table">
                 <tr>
                     <th>S.No</th>
-                    <th>Product</th>
-                    <th>Rate</th>
+                    <th>Item Description</th>
+                    <th>HSN/SAC Code</th>
                     <th>Quantity</th>
-                    <th>Amount</th>
+                    <th>Unit</th>
+                    <th>Price</th>
+                    <th>Amount ({{customerDetails?.CurrencySymbol}})</th>
                 </tr>
                 <tr *ngFor="let item of invoiceDetailsByInvoiceId; let i= index" class="items-col">
                     <td>{{i+1}}</td>
                     <td>{{item?.ProductName}}</td>
-                    <td>{{item?.Rate}}</td>
+                    <td>{{settings?.HSNNumber}}</td>
                     <td>{{item?.Quantity}}</td>
+                    <td>-</td>
+                    <td>{{item?.Rate}}</td>
                     <td>{{item?.Amount}}</td>
                 </tr>
             </table>
         </div>
-        <div class="row justify-content-end" style="border-right: 1px solid black; border-left: 1px solid black; margin-top: -16px;">
+        <div class="row justify-content-end" style="border: 1px solid black; border-bottom: 0; border-top: 0; margin-top: -16px;">
             <div class="col-md-8 align-self-center">
                 <br>
                 <br>
-                <p style="text-align: end;">Add   Tax: 18%</p>
+                <p style="text-align: end;">{{showTax}}</p>
             </div>
             <div class="col-md-4 align-self-end">
                 <p style="text-align: end;">{{invoiceDetails?.TotalAmount}}</p>
@@ -179,7 +255,7 @@
         </div>
         <div class="row justify-content-end" style="border: 1px solid black;">
             <div class="col align-self-end">
-                <p style="text-align: end;">Total:    {{invoiceDetails?.TotalInvoiceAmount}}</p>
+                <p style="text-align: end;">Total:  <b>{{invoiceDetails?.TotalInvoiceAmount}}</b></p>
                 <p><b>{{numberInWords}} rupees</b></p>
             </div>
         </div>
@@ -209,6 +285,433 @@
                 </div>
             </div>
         </div>
+    </div> -->
+     <!-- <div class="row" style="border: 1px solid black;
+                height: 45px;
+                border-top: 0;">
+                <div class="col-md-1" style="border-right: 1px solid black;"><b>S.No</b></div>
+                <div class="col-md-3" style="border-right: 1px solid black;"><b>Item Description</b></div>
+                <div class="col-md-2" style="border-right: 1px solid black;"><b>HSN/SAC Code</b></div>
+                <div class="col-md-1" style="border-right: 1px solid black;"><b>Quantity</b></div>
+                <div class="col-md-1" style="border-right: 1px solid black;"><b>Unit</b></div>
+                <div class="col-md-2" style="border-right: 1px solid black;"><b>Price</b></div>
+                <div class="col-md-2"><b>Amount ({{customerDetails?.CurrencySymbol}})</b></div>
+            </div>
+            <div class="row div-last" *ngFor="let item of invoiceDetailsByInvoiceId; let i= index" style="border: 1px solid black ;
+            border-bottom: 0;
+            border-top: 0;">
+                <div class="col-md-1" style="border-right: 1px solid black;">{{i+1}}</div>
+                <div class="col-md-3" style="border-right: 1px solid black;">{{item?.ProductName}}</div>
+                <div class="col-md-2" style="border-right: 1px solid black;">{{settings?.HSNNumber}}</div>
+                <div class="col-md-1" style="border-right: 1px solid black;">{{item?.Quantity}}</div>
+                <div class="col-md-1" style="border-right: 1px solid black;"><b>Unit</b></div>
+                <div class="col-md-2" style="border-right: 1px solid black;">{{item?.Rate}}</div>
+                <div class="col-md-2">{{item?.Amount}}</div>
+            </div> -->
+    <div class="pdf-template">
+        <div style="text-align: center;"><b>Tax Invoice</b></div>
+        <div class="container-fluid" style="border: 1px solid black">
+            <!-- row -->
+            <div class="row" style="border-bottom: 1px solid black;">
+                <div class="col-md-6" style="border-right: 1px solid black;">
+                    <div><b>{{vendorDetails?.CompanyName}}</b></div>
+                    <div>{{vendorDetails?.CompanyAddress}}, {{vendorDetails?.CityName}}, GSTIN/UIN: {{vendorDetails?.GstNumber}}</div>
+                    <div>State Name: {{vendorDetails?.StateName}}</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row" style="border-bottom: 1px solid black;">
+                        <div class="col-md-6" style="border-right: 1px solid black;">
+                            <div>Invoice No.</div>
+                            <div><b>{{invoiceDetails?.InvoiceNumber}}</b></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>Dated</div>
+                            <div><b>{{invoiceDetails?.InvoiceDate}}</b></div>
+                        </div>
+                    </div>
+                    <div class="row" style="border-bottom: 1px solid black;">
+                        <div class="col-md-6" style="border-right: 1px solid black;"></div>
+                        <div class="col-md-6">
+                            <div>Mode/Terms of Payment</div>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            Terms of Delivery
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row" style="border-bottom: 1px solid black;">
+                <div class="col-md-6" style="border-right: 1px solid black;">
+                    <div>Buyer (Bill to)</div>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+            <!-- row -->
+            <div class="row" style="border-bottom: 1px solid black;">
+                <div class="col-md-6" style="border-right: 1px solid black;">
+                    <div>{{customerDetails?.FirstName}} {{customerDetails?.LastName}}</div>
+                    <div>{{customerDetails?.Address}}, {{customerDetails?.CityName}}, {{customerDetails?.PostalCode}}</div>
+                    <div class="row">
+                        <div class="col-md-3">GSTIN/UIN</div>
+                        <div class="col-md-1">:</div>
+                        <div class="col-md-6">{{customerDetails?.GstNumber}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">State Name</div>
+                        <div class="col-md-1">:</div>
+                        <div class="col-md-6">{{customerDetails?.StateName}}</div>
+                    </div>
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+            <div class="row" style="border-bottom: 1px solid black;">
+                <div class="col-md-1" style="border-right: 1px solid black;">
+                    SI No.
+                </div>
+                <div class="col-md-6" style="border-right: 1px solid black;">
+                    Description of Services
+                </div>
+                <div class="col-md-1" style="border-right: 1px solid black;">
+                    HSN/SAC
+                </div>
+                <div class="col-md-1" style="border-right: 1px solid black;">
+                    Rate
+                </div>
+                <div class="col-md-1" style="border-right: 1px solid black;">
+                    per
+                </div>
+                <div class="col-md-2">
+                    Amount
+                </div>
+            </div>
+            <div class="row" *ngFor="let item of invoiceDetailsByInvoiceId; let i= index">
+                <div class="col-md-1" style="border-right: 1px solid black;">
+                    {{i+1}}
+                </div>
+                <div class="col-md-6" style="border-right: 1px solid black;">
+                    {{item?.ProductName}}
+                </div>
+                <div class="col-md-1" style="border-right: 1px solid black;">
+                    {{settings?.HSNNumber}}
+                </div>
+                <div class="col-md-1" style="border-right: 1px solid black;">
+                   
+                </div>
+                <div class="col-md-1" style="border-right: 1px solid black;">
+                   
+                </div>
+                <div class="col-md-2">
+                    <b>{{item?.Rate}}</b>
+                </div>
+            </div>
+            <div class="row row-hei" style="border-bottom: 1px solid black; border-top: 1px solid black;">
+                <div class="col-md-1" style="border-right: 1px solid black;">
+                    
+                </div>
+                <div class="col-md-6" style="border-right: 1px solid black; float: right;">
+                    <div *ngIf="no" style="float: right;">
+                        <div><b>No GST</b></div>
+                    </div>
+                    <div *ngIf="one" style="float: right;">
+                        <div><b>OUTPUT IGST @{{settings?.IgstPercent}}% </b></div>
+                    </div>
+                    <div *ngIf="both" style="float: right;">
+                        <div><b>OUTPUT CGST @{{settings?.CgstPercent}}% </b></div>
+                        <div><b>OUTPUT SGST @{{settings?.SgstPercent}}% </b></div>
+                    </div>
+                </div>
+                <div class="col-md-1" style="border-right: 1px solid black;">
+                    
+                </div>
+                <div class="col-md-1" style="border-right: 1px solid black; ">
+                    <div *ngIf="no">
+                        0
+                    </div>
+                    <div *ngIf="one">
+                        <div>{{settings?.IgstPercent}}</div>
+                    </div>
+                    <div *ngIf="both">
+                        <div>{{settings?.CgstPercent}}</div>
+                        <div>{{settings?.SgstPercent}}</div>
+                    </div>
+                </div>
+                <div class="col-md-1" style="border-right: 1px solid black;">
+                    <div *ngIf="no">
+                        %
+                    </div>
+                    <div *ngIf="one">
+                        <div>%</div>
+                    </div>
+                    <div *ngIf="both">
+                        <div>%</div>
+                        <div>%</div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div *ngIf="no">
+                        0
+                    </div>
+                    <div *ngIf="one">
+                        <div><b>{{invoiceDetails?.Tax}}</b></div>
+                    </div>
+                    <div *ngIf="both">
+                        <div><b>{{invoiceDetails?.TaxC}}</b></div>
+                        <div><b>{{invoiceDetails?.TaxS}}</b></div>
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row" style="border-bottom: 1px solid black;">
+                <div class="col-md-10" style="border-right: 1px solid black;">
+                    <div>Total</div>
+                </div>
+                <div class="col-md-2">
+                    <div><b>{{invoiceDetails?.TotalInvoiceAmount}}</b></div>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row" style="border-bottom: 1px solid black;">
+                <div class="col-md-10">
+                    <div>Amount Chargable (in words)</div>
+                    <div><b>{{numberInWords}} rupees only</b></div>
+                </div> 
+                <div class="col-md-2">
+                    <span style="float: right;">E. & O.E</span>
+                </div>
+            </div>
+            <!-- row -->
+            <!-- for both -->
+            <div class="row" style="border-bottom: 1px solid black;" *ngIf="both">
+                <div class="col-md-4" style="border-right: 1px solid black;">
+                    <div>HSN/SAC</div>
+                </div>
+                <div class="col-md-1" style="border-right: 1px solid black;">
+                    <div>Taxable</div>
+                    <div>Value</div>
+                </div>
+                <div class="col-md-3" style="border-right: 1px solid black;">
+                    <div class="row" style="border-bottom: 1px solid black;">
+                        <div>Central Tax</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="border-right: 1px solid black;">
+                            <div>Rate</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>Amount</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" style="border-right: 1px solid black;">
+                    <div class="row" style="border-bottom: 1px solid black;">
+                        <div>State Tax</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="border-right: 1px solid black;">
+                            <div>Rate</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>Amount</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="row" >
+                        <div>Total</div>
+                        <br>
+                        <div>Tax Amount</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="border-bottom: 1px solid black;" *ngIf="both">
+                <div class="col-md-4" style="border-right: 1px solid black;">
+                    <div>{{settings?.HSNNumber}}</div>
+                </div>
+                <div class="col-md-1" style="border-right: 1px solid black;">
+                    <div>{{invoiceDetails?.TotalAmount}}</div>
+                </div>
+                <div class="col-md-3" style="border-right: 1px solid black;">
+                    <div class="row">
+                        <div class="col-md-6" style="border-right: 1px solid black;">
+                            <div>{{settings.CgstPercent}}%</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>{{invoiceDetails?.TaxC}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" style="border-right: 1px solid black;">
+                    <div class="row">
+                        <div class="col-md-6" style="border-right: 1px solid black;">
+                            <div>{{settings.SgstPercent}}%</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>{{invoiceDetails?.TaxS}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="row" >
+                        <div>{{invoiceDetails?.Tax }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="border-bottom: 1px solid black;" *ngIf="both">
+                <div class="col-md-4" style="border-right: 1px solid black;">
+                    <div><b>Total</b></div>
+                </div>
+                <div class="col-md-1" style="border-right: 1px solid black;">
+                    <div><b>{{invoiceDetails?.TotalAmount}}</b></div>
+                </div>
+                <div class="col-md-3" style="border-right: 1px solid black;">
+                    <div class="row">
+                        <div class="col-md-6" style="border-right: 1px solid black;">
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <div><b>{{invoiceDetails?.TaxC}}</b></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" style="border-right: 1px solid black;">
+                    <div class="row">
+                        <div class="col-md-6" style="border-right: 1px solid black;">
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <div><b>{{invoiceDetails?.TaxS}}</b></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="row" >
+                        <div><b>{{invoiceDetails?.Tax }}</b></div>
+                    </div>
+                </div>
+            </div>
+            <!-- for both -->
+            <!-- for one -->
+            <div class="row" style="border-bottom: 1px solid black;" *ngIf="one">
+                <div class="col-md-5" style="border-right: 1px solid black;">
+                    <div>HSN/SAC</div>
+                </div>
+                <div class="col-md-2" style="border-right: 1px solid black;">
+                    <div>Taxable</div>
+                    <div>Value</div>
+                </div>
+                <div class="col-md-3" style="border-right: 1px solid black;">
+                    <div class="row" style="border-bottom: 1px solid black;">
+                        <div>Integrated Tax</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="border-right: 1px solid black;">
+                            <div>Rate</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>Amount</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="row" >
+                        <div>Total</div>
+                        <br>
+                        <div>Tax Amount</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="border-bottom: 1px solid black;" *ngIf="one">
+                <div class="col-md-5" style="border-right: 1px solid black;">
+                    <div>{{settings?.HSNNumber}}</div>
+                </div>
+                <div class="col-md-2" style="border-right: 1px solid black;">
+                    <div>{{invoiceDetails?.TotalAmount}}</div>
+                </div>
+                <div class="col-md-3" style="border-right: 1px solid black;">
+                    <div class="row">
+                        <div class="col-md-6" style="border-right: 1px solid black;">
+                            <div>{{settings.IgstPercent}}%</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>{{invoiceDetails?.Tax}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="row" >
+                        <div>{{invoiceDetails?.Tax }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="border-bottom: 1px solid black;" *ngIf="one">
+                <div class="col-md-5" style="border-right: 1px solid black;">
+                    <div><b>Total</b></div>
+                </div>
+                <div class="col-md-2" style="border-right: 1px solid black;">
+                    <div><b>{{invoiceDetails?.TotalAmount}}</b></div>
+                </div>
+                <div class="col-md-3" style="border-right: 1px solid black;">
+                    <div class="row">
+                        <div class="col-md-6" style="border-right: 1px solid black;">
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <div><b>{{invoiceDetails?.Tax}}</b></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-1">
+                    <div class="row" >
+                        <div><b>{{invoiceDetails?.Tax }}</b></div>
+                    </div>
+                </div>
+            </div>
+            <!-- for one -->
+            
+            <!-- row -->
+            <div class="row" style="border-bottom: 1px solid black;">
+                <div class="col-md-12">
+                    <div>Tax Amount (in words) : <b>{{numberInWordstax}} rupees only</b></div>
+                    <div style="float: right;">
+                        <div>Company's Bank Details</div>
+                        <div class="row">
+                            <div class="col-md-6">Bank Name</div>
+                            <div class="col-md-1">:</div>
+                            <div class="col-md-4"><b>{{vendorDetails?.BankName}}</b></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">Account Number</div>
+                            <div class="col-md-1">:</div>
+                            <div class="col-md-4"><b>{{vendorDetails?.AccountNumber}}</b></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">IFSC Code</div>
+                            <div class="col-md-1">:</div>
+                            <div class="col-md-4"><b>{{vendorDetails?.IfscCode}}</b></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-6" style="border-right: 1px solid black;">
+                    <div>9 Declaration</div>
+                    <div>We declare that this invoice shows the actual price of the goods described and that all particulars are true and correct.</div>
+                </div>
+                <div class="col-md-6">
+                    <div><b>for {{vendorDetails?.CompanyName}}</b></div>
+                    <br>
+                    <br>
+                    <div style="float: right;">Authorized Signature</div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center;">This is a computer generated Invoice</div>
     </div>
 </body>
 </html>
@@ -217,7 +720,6 @@
         <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
     </div>
 </div>
-
 
 
 

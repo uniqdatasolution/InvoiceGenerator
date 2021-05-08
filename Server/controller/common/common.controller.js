@@ -90,6 +90,38 @@ async function getCurrencyList() {
     }
 }
 
+async function saveSettings(form) {
+    try {
+        // enctype="multipart/form-data"
+        let pool = await sql.connect(config);
+        let saveSettings = await pool.request()
+            .input('SettingsId', sql.Int, form.SettingsId)
+            .input('CgstPercent', sql.Decimal, form.CgstPercent)
+            .input('IgstPercent', sql.Decimal, form.IgstPercent)
+            .input('CreatedBy', sql.Int, form.CreatedBy)
+            .input('ModifiedBy', sql.Int, form.ModifiedBy)
+            .input('SgstPercent', sql.Decimal, form.SgstPercent)
+            .input('HSNNumber', sql.Decimal, form.HSNNumber)
+            .execute('SaveSettings');
+        return {status: true, data: saveSettings.recordsets[0], errorMessage: ""};
+    } catch (error) {
+        console.log(error);
+        return {status: false,errorMessage: error }
+    }
+}
+
+async function getSettings() {
+    try {
+        let pool = await sql.connect(config);
+        let settings = await pool.request()
+                    .execute('GetSettings')
+        return {status: true, data: settings.recordsets[0], errorMessage: ""};
+    } catch (error) {
+        // console.log('errrrrrrrrrrrrrrrrrrrrrrrr', error);
+        return {status: false,errorMessage: error }
+    }
+}
+
 module.exports = {
     getCityByCityId: getCityByCityId,
     getStateByStateId: getStateByStateId,
@@ -98,4 +130,6 @@ module.exports = {
     getStateListByCountryId: getStateListByCountryId,
     getCityListByStateId: getCityListByStateId,
     getCurrencyList: getCurrencyList,
+    saveSettings: saveSettings,
+    getSettings: getSettings
 }

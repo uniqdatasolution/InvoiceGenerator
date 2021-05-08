@@ -21,7 +21,9 @@ export class EditCustomerComponent implements OnInit {
   editForm: any = FormGroup;
   stateList: Array<any> = [];
   cityList: Array<any> = [];
+  currencyList: Array<any> = [];
   showGst = false;
+  customerDetails: any;
 
   constructor(
     private router: Router,
@@ -51,19 +53,22 @@ export class EditCustomerComponent implements OnInit {
       City: ['', Validators.required],
       State: ['', Validators.required],
       Country: ['', Validators.required],
-      AadharCard:  ['', Validators.pattern('^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$')],
-      PanCard: ['', Validators.pattern('^([A-Z]){5}([0-9]){4}([A-Z]){1}$')],
-      GstNumber: [''],
+      // AadharCard:  ['', Validators.pattern('^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$')],
+      // PanCard: ['', Validators.pattern('^([A-Z]){5}([0-9]){4}([A-Z]){1}$')],
+      // GstNumber: [''],
+      CurrencyCode: ['', Validators.required]
     });
     this.editForm.controls['Email'].disable();
   }
 
   ngOnInit(): void {
+    this.getCurrencyList();
     this.route.params.subscribe(params => {
       this.id = params.id;
       this.customerService.getCustomerById(this.id).subscribe((data: any) => {
           console.log("data "+JSON.stringify(data))
           data = data.data[0]
+          this.customerDetails= data
           this.customerModel.CustomerId = data.CustomerId;
           this.customerModel.IsActive = data.IsActive;
           this.customerModel.IsDeleted = data.IsDeleted;
@@ -78,19 +83,32 @@ export class EditCustomerComponent implements OnInit {
           this.editForm.get('PhoneNumber').setValue(data.PhoneNumber);
           this.editForm.get('PostalCode').setValue(data.PostalCode);
           this.editForm.get('Country').setValue(data.Country);
-          this.editForm.get('GstNumber').setValue(data.GstNumber);
+          // this.editForm.get('GstNumber').setValue(data.GstNumber);
+          // this.editForm.get('CurrencyCode').setValue(data.CurrencyCode);
           // this.editForm.get('State').setValue(data.StateId);
           // this.editForm.get('City').setValue(data.CityId);
           // this.editForm.get('Country').setValue(data.Country);
+
           this.getStateList(data.Country);
-          this.editForm.get('State').setValue(data.State);
+          // this.editForm.get('State').setValue(data.State);
           this.getCityList(data.State);
           this.editForm.get('City').setValue(data.City);
+          this.editForm.get('CurrencyCode').setValue(data.CurrencyCode);
+          this.editForm.get('GstNumber').setValue(data.GstNumber);
       })
     }) 
     this.appService.getCountryList().subscribe((data: any) => {
       if (!!data && data.data) {
         this.countryList = data.data;
+      }
+    })
+  }
+
+  getCurrencyList() {
+    this.appService.getCurrencyList().subscribe((res: any) => {
+      console.log('=====================list', res.data)
+      if(res.status) {
+        this.currencyList=res.data;
       }
     })
   }
@@ -123,6 +141,8 @@ export class EditCustomerComponent implements OnInit {
           console.log("state "+JSON.stringify(data))
           if (!!data && data.data) {
               this.stateList = data.data;
+              this.editForm.get('State').setValue(this.customerDetails.State);
+              this.getCityList(this.customerDetails.State)
           }
       });
     }
@@ -137,6 +157,7 @@ export class EditCustomerComponent implements OnInit {
       .subscribe((data: any) => {
           if (!!data && data.data) {
               this.cityList = data.data;
+              this.editForm.get('City').setValue(this.customerDetails.City);
           }
       });
     }
@@ -167,6 +188,7 @@ export class EditCustomerComponent implements OnInit {
     this.customerModel.State = this.editForm.value.State;
     this.customerModel.Country = this.editForm.value.Country;
     this.customerModel.GstNumber = this.editForm?.value.GstNumber;
+    this.customerModel.CurrencyCode = this.editForm?.value.CurrencyCode;
     console.log('==cus', this.customerModel);
     this.customerService.saveCustomer(this.customerModel).subscribe((data: any) => {
       if (data.status) {

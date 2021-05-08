@@ -20,6 +20,7 @@ export class AddCustomerComponent implements OnInit {
   createForm: any = FormGroup;
   stateList: Array<any> = [];
   cityList: Array<any> = [];
+  currencyList: Array<any> = [];
   showGst = false;
 
   constructor(
@@ -51,6 +52,7 @@ export class AddCustomerComponent implements OnInit {
       City: ['', Validators.required],
       State: ['', Validators.required],
       Country: ['', Validators.required],
+      CurrencyCode: ['', Validators.required]
     });
   }
 
@@ -58,6 +60,15 @@ export class AddCustomerComponent implements OnInit {
     this.appService.getCountryList().subscribe((data: any) => {
       if (!!data && data.data) {
         this.countryList = data.data;
+      }
+    })
+    this.getCurrencyList();
+  }
+
+  getCurrencyList() {
+    this.appService.getCurrencyList().subscribe((res: any) => {
+      if(res.status) {
+        this.currencyList=res.data;
       }
     })
   }
@@ -141,6 +152,7 @@ export class AddCustomerComponent implements OnInit {
     this.customerModel.State = this.createForm.value.State;
     this.customerModel.Country = this.createForm.value.Country;
     this.customerModel.GstNumber = this.createForm?.value.GstNumber;
+    this.customerModel.CurrencyCode = this.createForm?.value.CurrencyCode;
     console.log('==cus', this.customerModel);
     this.customerService.saveCustomer(this.customerModel).subscribe((data: any) => {
       if (!!data) {

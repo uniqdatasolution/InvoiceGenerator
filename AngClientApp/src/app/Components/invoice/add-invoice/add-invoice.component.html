@@ -17,6 +17,26 @@
                 </mat-form-field>
             </form>
         </div>
+        <div>
+            <form [formGroup]="createForm">
+                <mat-form-field class="field-full-width">
+                    <input matInput placeholder="GR/RR No." maxlength="15" formControlName="GRRRNo" #GRRRNo>
+                </mat-form-field>
+                &nbsp;
+                <mat-form-field class="field-full-width">
+                    <input matInput placeholder="Transport" maxlength="15" formControlName="Transport" #Transport>
+                </mat-form-field>
+                &nbsp;
+                <mat-form-field class="field-full-width">
+                    <input matInput placeholder="VehicleNo" maxlength="40" formControlName="VehicleNo" #VehicleNo>
+                </mat-form-field>            
+                &nbsp;
+                <mat-form-field class="field-full-width">
+                    <input matInput placeholder="Station" maxlength="15" formControlName="Station" #Station>
+                </mat-form-field>
+            </form>
+        </div>
+        
     </div>
 
     <div class="row justify-content-center" *ngIf="!showAdd">

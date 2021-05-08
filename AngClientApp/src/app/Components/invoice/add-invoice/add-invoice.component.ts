@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { AppService } from 'src/app/Services/app-service.service';
@@ -29,6 +29,7 @@ export class AddInvoiceComponent implements OnInit {
   productDetails: any;
   fieldArray: any = [];
   newAttribute: any = {};
+  createForm: any = FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -39,7 +40,14 @@ export class AddInvoiceComponent implements OnInit {
     private toastr: ToastrService,
     public dialogRef: MatDialogRef<AddInvoiceComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) { }
+  ) {
+    this.createForm = this.fb.group({
+      GRRRNo: [''],
+      Transport: [''],
+      VehicleNo: [''],
+      Station: [''],
+    });
+  }
 
   ngOnInit(): void {
     this.getCustomersList();
@@ -168,6 +176,10 @@ export class AddInvoiceComponent implements OnInit {
       console.log('=================amount', InvoiceAmount);
     }
     this.invoiceModel.TotalAmount = InvoiceAmount;
+    this.invoiceModel.GRRRNo = this.createForm.value.GRRRNo;
+    this.invoiceModel.Transport = this.createForm.value.Transport;
+    this.invoiceModel.VehicleNo = this.createForm.value.VehicleNo;
+    this.invoiceModel.Station = this.createForm.value.Station;
     this.invoiceService.saveInvoice(this.invoiceModel).subscribe((res: any) => {
       console.log('====================res for invoice', res)
       if(res.status) {

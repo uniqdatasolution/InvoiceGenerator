@@ -47,8 +47,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('dashboard/invoice');
   }
 
-  gotoPayments() {
-    this.router.navigateByUrl('dashboard/payments');
+  gotoSettings() {
+    this.router.navigateByUrl('dashboard/settings');
   }
 
   // gotoReports() {

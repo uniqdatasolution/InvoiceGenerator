@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { InvoiceDetailModel, InvoiceModel } from 'src/app/Models/invoice.model';
@@ -35,6 +35,7 @@ export class EditInvoiceComponent implements OnInit {
   newAttribute: any = {};
   invoiceById: any = {};
   invoiceDetailsByInvoiceId: any = [];
+  editForm: any = FormGroup;
 
   colorControl= new FormControl();
 
@@ -52,6 +53,12 @@ export class EditInvoiceComponent implements OnInit {
     this.invoiceId = data.invoiceId;
     this.customerId = data.customerId;
     this.colorControl = new FormControl(this.customerId);
+    this.editForm = this.fb.group({
+      GRRRNo: [''],
+      Transport: [''],
+      VehicleNo: [''],
+      Station: [''],
+    });
   }
 
   ngOnInit(): void {
@@ -67,6 +74,10 @@ export class EditInvoiceComponent implements OnInit {
         this.invoiceModel.InvoiceId = res.data[0].InvoiceId;
         this.invoiceModel.InvoiceDate = res.data[0].InvoiceDate;
         this.invoiceModel.CustomerId = res.data[0].CustomerId;
+        this.editForm.get('GRRRNo').setValue(res.data[0].GRRRNo);
+        this.editForm.get('Transport').setValue(res.data[0].Transport);
+        this.editForm.get('VehicleNo').setValue(res.data[0].VehicleNo);
+        this.editForm.get('Station').setValue(res.data[0].Station);
         this.getCustomers();
         this.getCustomerById(res.data[0].CustomerId);
         this.invoiceModel.TotalAmount = res.data[0].TotalAmount;
@@ -197,6 +208,10 @@ export class EditInvoiceComponent implements OnInit {
     }
     this.invoiceModel.TotalAmount = InvoiceAmount;
     this.invoiceModel.CustomerId = this.customerId;
+    this.invoiceModel.GRRRNo = this.editForm.value.GRRRNo;
+    this.invoiceModel.Transport = this.editForm.value.Transport;
+    this.invoiceModel.VehicleNo = this.editForm.value.VehicleNo;
+    this.invoiceModel.Station = this.editForm.value.Station;
     this.invoiceService.saveInvoice(this.invoiceModel).subscribe((res: any) => {
       console.log('====================res for invoice', res)
       if(res.status) {
@@ -233,7 +248,7 @@ export class EditInvoiceComponent implements OnInit {
           this.invoiceService.saveInvoiceDetail(DetailfieldArray).subscribe((response: any) => {
             console.log('====================res for invoice details', response)
             if(response.status) {
-              this.toastr.success('Invoice and Invoice Details are added Successfully!');
+              this.toastr.success('Invoice and Invoice Details are updated Successfully!');
               this.dialogRef.close();
             } else {
               this.toastr.error('Something went wrong!');

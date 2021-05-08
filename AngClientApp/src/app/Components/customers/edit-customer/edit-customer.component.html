@@ -102,6 +102,19 @@
                 </label> -->
             </mat-form-field> 
 
+            <mat-form-field appearance="fill" class="field-full-width">
+                <mat-label>Select Currency</mat-label>
+                <mat-select formControlName="CurrencyCode" #CurrencyCode required>
+                    <mat-option  *ngFor="let item of currencyList" [value]="item.CurrencyId">
+                        {{item.Name}} - {{item.Code}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="editForm.controls['CurrencyCode'].errors?.required">
+                    Please choose Currency
+                </mat-error>
+            </mat-form-field>
+            
+
             <div class="col-sm-3">
                 <mat-slide-toggle color="primary" (change)="setValue($event)"
                 [(ngModel)]="toggleStatus" [ngModelOptions]="{standalone: true}">Active</mat-slide-toggle>

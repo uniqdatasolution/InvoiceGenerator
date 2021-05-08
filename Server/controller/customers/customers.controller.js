@@ -21,6 +21,7 @@ async function saveCustomer(form) {
             .input('CreatedBy', sql.Int, form.CreatedBy)
             .input('ModifiedBy', sql.Int, form.ModifiedBy)
             .input('GstNumber', sql.VarChar, form.GstNumber)
+            .input('CurrencyCode', sql.VarChar, form.CurrencyCode)
             .execute('SaveCustomer');
         return {status: true, data: saveCustomer.recordsets[0], errorMessage: ""};
     } catch (error) {

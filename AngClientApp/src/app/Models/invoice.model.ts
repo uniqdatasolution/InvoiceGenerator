@@ -5,6 +5,10 @@ export class InvoiceModel {
     TotalAmount?: number;
     CreatedBy?: number;
     ModifiedBy?: number;
+    GRRRNo?: String;
+    Transport?: String;
+    VehicleNo?: String;
+    Station?: String;
 }
 export class InvoiceDetailModel {
     InvoiceDetailId?: number;

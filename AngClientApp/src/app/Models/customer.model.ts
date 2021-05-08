@@ -15,5 +15,6 @@ export class CustomerModel {
     CreatedDate?: Date;
     ModifiedBy?: number;
     ModifiedDate?: Date;
-    GstNumber?: String
+    GstNumber?: String;
+    CurrencyCode?: String;
 }

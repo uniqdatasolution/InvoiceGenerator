@@ -99,6 +99,18 @@
             </label> -->
         </mat-form-field> 
 
+        <mat-form-field appearance="fill" class="field-full-width">
+            <mat-label>Select Currency</mat-label>
+            <mat-select formControlName="CurrencyCode" #CurrencyCode required>
+                <mat-option  *ngFor="let item of currencyList" [value]="item.CurrencyId">
+                    {{item.Name}} - {{item.Code}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="createForm.controls['CurrencyCode'].errors?.required">
+                Please choose Currency
+            </mat-error>
+        </mat-form-field>
+
         <!-- <mat-divider></mat-divider>
         <br><br>
         <div class="col-sm-3" *ngIf="!!imageToShow && imageToShow != ''">

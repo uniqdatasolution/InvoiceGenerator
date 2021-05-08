@@ -1,0 +1,45 @@
+<app-header></app-header>
+<div class="main">
+    <div class="container-fluid">
+        <section class="mat-typography">
+            <h2>Edit Settings</h2>
+        </section>
+        <mat-divider></mat-divider>
+        <br>
+        <form [formGroup]="editForm" (ngSubmit)='onSubmit()' class="create-form">
+
+            <mat-form-field class="field-full-width">
+              <input matInput placeholder="CGST Percentage" maxlength="15" formControlName="CgstPercent" #CgstPercent required>
+              <mat-error *ngIf="editForm.controls['CgstPercent'].errors?.required">
+                Cgst Percent is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="field-full-width">
+                <input matInput placeholder="SGST Percentage" maxlength="15" formControlName="SgstPercent" #SgstPercent required>
+                <mat-error *ngIf="editForm.controls['SgstPercent'].errors?.required">
+                  Sgst Percent is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="field-full-width">
+              <input matInput placeholder="IGST Percentage" maxlength="15" formControlName="IgstPercent" #IgstPercent required>
+              <mat-error *ngIf="editForm.controls['IgstPercent'].errors?.required">
+                IGST Percent is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="field-full-width">
+                <input matInput placeholder="HSN Number" maxlength="15" formControlName="HSNNumber" #HSNNumber required>
+                <mat-error *ngIf="editForm.controls['HSNNumber'].errors?.required">
+                  HSN Number is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            
+            <br><br>
+            <button mat-raised-button color="accent" (click)="goBack()">Back</button>&nbsp;
+            <button type="submit" [disabled]="editForm.pristine || editForm.invalid" mat-raised-button color="primary">Save</button>
+          </form>
+    </div>
+</div>
+<app-footer></app-footer>

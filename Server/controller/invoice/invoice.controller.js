@@ -11,6 +11,10 @@ async function saveInvoice(form) {
             .input('TotalAmount', sql.Decimal, form.TotalAmount)
             .input('CreatedBy', sql.Int, form.CreatedBy)
             .input('ModifiedBy', sql.Int, form.ModifiedBy)
+            .input('GRRRNo', sql.VarChar, form.GRRRNo)
+            .input('Transport', sql.VarChar, form.Transport)
+            .input('VehicleNo', sql.VarChar, form.VehicleNo)
+            .input('Station', sql.VarChar, form.Station)
             .execute('SaveInvoice');
         return {status: true, data: saveInvoice.recordsets[0], errorMessage: ""};
     } catch (error) {

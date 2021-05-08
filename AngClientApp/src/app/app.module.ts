@@ -33,7 +33,8 @@ import { EditInvoiceComponent } from './Components/invoice/edit-invoice/edit-inv
 import { DownloadInvoiceComponent } from './Components/invoice/download-invoice/download-invoice.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbButtonsModule, NgbDropdownModule, NgbTooltipModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgxNumToWordsModule } from 'ngx-num-to-words'; 
+import { NgxNumToWordsModule } from 'ngx-num-to-words';
+import { SettingsComponent } from './Components/settings/settings.component'; 
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { NgxNumToWordsModule } from 'ngx-num-to-words';
     InvoiceComponent,
     AddInvoiceComponent,
     EditInvoiceComponent,
-    DownloadInvoiceComponent
+    DownloadInvoiceComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

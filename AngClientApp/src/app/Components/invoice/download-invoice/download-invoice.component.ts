@@ -18,15 +18,20 @@ export class DownloadInvoiceComponent implements OnInit {
 
   invoiceDetails: any;
   invoiceDetailsByInvoiceId: any;
-  // downloadInvoiceDetails: any;
-  // downloadInvoiceDetails1: any;
   invoiceId: any;
   customerId: any;
   customerDetails: any;
   numberInWords!: string;
+  numberInWordstax: any;
   lang: SUPPORTED_LANGUAGE = 'en';
   value: any;
   vendorDetails: any;
+  settings: any;
+  showTax = '';
+  no: Boolean = false;
+  one: Boolean = false
+  both: Boolean = false;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -44,16 +49,17 @@ export class DownloadInvoiceComponent implements OnInit {
       this.customerId = params.cid
     })
     await this.getVendorById();
+    await this.getCustomerById();
+    await this.getSettings();
     await this.getInvoiceByInvoiceId();
     await this.getInvoiceDetailsByInvoiceId();
-    await this.getCustomerBy();
   }
 
-  getVendorById() {
+  async getVendorById() {
     let id = localStorage.getItem('UserId');
-    this.appService.getVendorById(id).subscribe((res: any) => {
+    await this.appService.getVendorById(id).subscribe(async (res: any) => {
       if(res.status) {
-        this.vendorDetails = res.data[0];
+        this.vendorDetails = await res.data[0];
         this.appService.getCountryByCountryId(this.vendorDetails.Country).subscribe((res: any) => {
           if(res.status) {
             this.vendorDetails.CountryName = res.data[0].CountryName
@@ -77,13 +83,43 @@ export class DownloadInvoiceComponent implements OnInit {
     this.invoiceService.getInvoiceById(this.invoiceId).subscribe((res: any) => {
       if(res.status) {
         this.invoiceDetails = res.data[0];
-        this.invoiceDetails.Tax = (this.invoiceDetails.TotalAmount*18)/100;
-        this.invoiceDetails.TotalInvoiceAmount = this.invoiceDetails.TotalAmount + this.invoiceDetails.Tax;
-        this.value = this.invoiceDetails.TotalInvoiceAmount;
-        // let z=this.value;
-        // var x = z.split('.');
-        // console.log('=============xxxxxxxxxx',z, x)
-        this.numberInWords = this.ngxNumToWordsService.inWords(this.value, this.lang);
+        setTimeout(() => { 
+          if(this.customerDetails?.Country != 101) {
+            this.no = true;
+            console.log('=======cust out of ind')
+            this.invoiceDetails.Tax = 0;
+            this.showTax = 'No Tax : '
+            let tax = 0;
+            this.invoiceDetails.Tax = 0;
+            this.numberInWordstax = this.ngxNumToWordsService.inWords(tax, this.lang);
+          } else {
+            if(this.customerDetails.State === this.vendorDetails.State) {
+              this.both = true;
+              console.log('============cust and vend state is same cgst, sgst')
+              let tax = this.settings.CgstPercent + this.settings.SgstPercent
+              let c = this.settings.CgstPercent;
+              let s = this.settings.SgstPercent
+              this.invoiceDetails.TaxC = (this.invoiceDetails.TotalAmount* c)/100;
+              this.invoiceDetails.TaxS = (this.invoiceDetails.TotalAmount* s)/100;
+              this.invoiceDetails.Tax = (this.invoiceDetails.TotalAmount*tax)/100;
+              this.showTax = 'Add Tax           @CGST : ' + this.settings.CgstPercent + '%  + @SGST : ' + this.settings.SgstPercent + '%'
+              this.numberInWordstax = this.ngxNumToWordsService.inWords(tax, this.lang);
+            } else {
+              this.one = true;
+              let tax = this.settings.IgstPercent
+              console.log('============cust and vend state is diff igst', this.invoiceDetails.TotalAmount, tax)
+              this.invoiceDetails.Tax = (this.invoiceDetails.TotalAmount*tax)/100;
+              this.showTax = 'Add Tax           @IGST : ' + this.settings.IgstPercent +'%'
+              this.numberInWordstax = this.ngxNumToWordsService.inWords(tax, this.lang)
+            }
+          }
+          this.invoiceDetails.TotalInvoiceAmount = this.invoiceDetails.TotalAmount + this.invoiceDetails.Tax;
+          this.value = this.invoiceDetails.TotalInvoiceAmount;
+          // let z=this.value;
+          // var x = z.split('.');
+          // console.log('=============xxxxxxxxxx',z, x)
+          this.numberInWords = this.ngxNumToWordsService.inWords(this.value, this.lang);
+        }, 2000);
       }
     })
   }
@@ -97,10 +133,10 @@ export class DownloadInvoiceComponent implements OnInit {
     })
   }
 
-  getCustomerBy() {
-    this.customerService.getCustomerById(this.customerId).subscribe((res: any) => {
+  async getCustomerById() {
+    await this.customerService.getCustomerById(this.customerId).subscribe(async (res: any) => {
       if(res.status) {
-        this.customerDetails = res.data[0];
+        this.customerDetails = await res.data[0];
         let countryId = res.data[0].Country;
         this.appService.getCountryByCountryId(countryId).subscribe((res: any) => {
           if(res.status) {
@@ -119,6 +155,14 @@ export class DownloadInvoiceComponent implements OnInit {
             this.customerDetails.CityName = res.data[0].CityName;
           }
         })
+      }
+    })
+  }
+
+  getSettings() {
+    this.appService.getSettings().subscribe((res: any) => {
+      if(res.status) {
+        this.settings = res.data[0];
       }
     })
   }

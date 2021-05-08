@@ -13,6 +13,7 @@ import { LoginComponent } from './Components/login/login.component';
 import { AddProductComponent } from './Components/products/add-product/add-product.component';
 import { EditProductComponent } from './Components/products/edit-product/edit-product.component';
 import { ProductsComponent } from './Components/products/products.component';
+import { SettingsComponent } from './Components/settings/settings.component';
 
 const routes: Routes = [
   {                                          // removed square bracket
@@ -71,6 +72,10 @@ const routes: Routes = [
   {
     path: 'dashboard/invoice/download-invoice/:id/:cid',
     component: DownloadInvoiceComponent
+  },
+  {
+    path: 'dashboard/settings',
+    component: SettingsComponent
   },
 ];
 

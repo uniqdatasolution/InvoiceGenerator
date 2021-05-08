@@ -53,4 +53,21 @@ router.route('/GetCurrencyList').get((req, res) => {
     })
 })
 
+router.route('/SaveSettings').post((req, res) => {
+    // // destructuring req.body
+    let add = {...req.body};
+    Db.saveSettings(add).then(result => {
+        console.log('res for saveSettings ', result);
+        // res.status(200).json(result[0]);
+        res.json(result);
+    })
+})
+
+router.route('/GetSettings').get((req, res) => {
+    Db.getSettings().then(result => {
+        // console.log('res settings ', result);
+        res.json(result);
+    })
+})
+
 module.exports = router;

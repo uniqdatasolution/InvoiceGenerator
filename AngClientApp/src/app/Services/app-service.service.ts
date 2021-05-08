@@ -109,4 +109,18 @@ export class AppService {
     )
   }
 
+  getSettings() {
+    return this.http.get(`${this.apiUrl}/GetSettings/`)
+    .pipe(
+      catchError(this.handleError('GetSettings', null))
+    )
+  }
+
+  saveSettings(settings: any) {
+    return this.http.post(`${this.apiUrl}/SaveSettings`, settings)
+    .pipe(
+      catchError(this.handleError('save settings', null))
+    )
+  }
+
 }
